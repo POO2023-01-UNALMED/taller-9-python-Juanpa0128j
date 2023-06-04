@@ -3,7 +3,10 @@ from tkinter import Tk, Button, Entry,StringVar
 class Calculator(): 
     @classmethod
     def mostrar_num(cls, num):
-        cls.num_mostrar.set(cls.num_mostrar.get() + str(num))
+        if(cls.operator == "="):
+            cls.num_mostrar.set(str(num))
+        else:
+            cls.num_mostrar.set(cls.num_mostrar.get() + str(num))
 
     @classmethod
     def resultado_mostrar(cls):
@@ -13,7 +16,7 @@ class Calculator():
             cls.num_mostrar.set("".join(l))
             cls.num_mostrar.set(cls.result + float(cls.num_mostrar.get()))
 
-        elif cls.cls.operator == "resta":
+        elif cls.operator == "resta":
             l = list(cls.num_mostrar.get())
             del l[0 : l.index("-") + 1]
             cls.num_mostrar.set("".join(l))
@@ -31,13 +34,15 @@ class Calculator():
             cls.num_mostrar.set("".join(l))
             cls.num_mostrar.set(cls.result/float(cls.num_mostrar.get()))
 
-        cls.result = 0   
+        cls.result = 0
+        cls.operator = "="
+
 
     @classmethod
     def suma(cls, num):
         cls.result = float(num)
         cls.num_mostrar.set(cls.num_mostrar.get() + "+")
-        cls.operator ="suma"
+        cls.operator = "suma"
     
     @classmethod
     def resta(cls, num):
@@ -90,6 +95,7 @@ class Calculator():
         self.root.mainloop()
 
     num_mostrar = None
+    num_mostrar_aux = None
     result = 0
     operator = ""
 
